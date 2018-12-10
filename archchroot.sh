@@ -12,6 +12,8 @@ read myzoneinfo
 ln -sf /usr/share/zoneinfo/$myzoneinfo /etc/localtime
 sleep 1
 clear
+#Making initialRam disk file
+mkinitcpio -p linux
 
 echo "Do you want to install GRUB in the MBR? (Y/n)"
 read -e option
