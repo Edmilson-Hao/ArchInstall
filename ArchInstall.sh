@@ -41,6 +41,12 @@ function baseInstall() {
 }
 
 function grubChroot() {
+	echo "Generating fstab file."
+	sleep 1
+	genfstab /mnt >> /mnt/etc/fstab
+	
+	echo "Downloading chroot script."
+	sleep 1
 	wget https://raw.githubusercontent.com/Edmilson-Hao/ArchLinuxInstall/master/archchroot.sh
 	cp archchroot.sh /mnt/tmp
 	chmod +x /mnt/tmp/archchroot.sh
@@ -49,6 +55,4 @@ function grubChroot() {
 	for i in /sys /proc /run /dev ; do mount --bind "$i" "/mnt$i"; done
 	chroot /mnt /bin/bash
 	echo "" > /mnt/root/.bashrc
-
-	genfstab /mnt >> /mnt/etc/fstab
 }
