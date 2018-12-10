@@ -6,7 +6,7 @@ set partition
 
 #####################################################################################
 
-[[ ping -c2 archlinux.org ]] || echo "You don't have internet connection. Please connect a ethernet connection or use wifi-menu to set up a wifi networkin."
+[[ $(ping -c2 archlinux.org) ]] || echo "You don't have internet connection. Please connect a ethernet connection or use wifi-menu to set up a wifi networkin."
 
 loadkeys br-abnt2
 
