@@ -36,7 +36,7 @@ function selectMirror() {
 }
 
 function baseInstall() {
-	pacstrap /mnt base
+	pacstrap /mnt base base-devel
 	read oi
 	echo $oi
 }
