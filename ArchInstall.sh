@@ -32,3 +32,11 @@ function selectMirror() {
 	cat /etc/pacman.d/mirrorlist | grep "\.br" > mirror
 	cat mirror > /etc/pacman.d/mirrorlist
 }
+
+function baseInstall() {
+	pacstrap /mnt base
+	read oi
+	echo $oi
+}
+
+baseInstall
