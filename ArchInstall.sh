@@ -8,14 +8,11 @@ set partition
 
 [[ $(ping -c2 archlinux.org) ]] || echo "You don't have internet connection. Please connect a ethernet connection or use wifi-menu to set up a wifi networkin."
 
-loadkeys br-abnt2
-
 clear
 function setPartition() {
 	echo "This script assumes that you have already formated the driver to a layout that"
 	echo "suits your need also if you want to create a swap driver make it yourself by"
 	echo "using mkswap and swapon. I think using a swapfile is a better idea."
-
 	echo ; echo
 	sleep 1
 
