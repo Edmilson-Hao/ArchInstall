@@ -2,10 +2,6 @@
 
 exitMessage="The installation is complete, type exit to leave chroot, remove the installation media and reboot the system."
 
-echo "setting pt_BR to locale.gen"
-echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen
-locale-gen
-
 echo "Pleaze enter your current timezone (eg.: America/Recife, America/Argentina/Buenos_aires etc.)."
 echo "If your not sure run select another tty and list all available options -> ls /usr/share/zoneinfo"
 read myzoneinfo
