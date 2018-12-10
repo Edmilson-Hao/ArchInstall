@@ -59,10 +59,12 @@ function grubChroot() {
 	genfstab /mnt >> /mnt/etc/fstab
 	timedatectl set-ntp true
 	localectl set-keymap br-abnt2
+	systemctl enable dhcpcd
+	echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen
 	echo 'LANG=pt_BR.UTF-8' > /etc/locale.conf
 	echo 'KEYMAP=br-abnt2' > /etc/vconsole.conf
 	echo 'arch' > /etc/hostname
-	systemctl enable dhcpcd
+	locale-gen
 	
 	echo "Downloading chroot script."
 	sleep 1
