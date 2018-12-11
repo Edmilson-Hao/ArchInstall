@@ -31,22 +31,19 @@
 #SOFTWARE.
 #
 
-
-
 ##############################################Functions##############################################
 
 function setPartition() {
-	echo "Please enter the partition you want to install arch linux (eg.: sda1 or sd2...)."
-	read partition
+	echo "Please enter the partition you want to install arch linux (e.g.: sda1 or sd2...)."
 	clear
+	read partition
 	mkfs.xfs -f /dev/$partition
-	mount /dev/$partition /mnt && echo "/dev/$partition mounted in /mnt" || { echo "Error: Please check if your typed the right partition and rettry." ; echo " Press any key to continue." ; read ; exit ; }	
+	mount /dev/$partition /mnt && echo "/dev/$partition mounted in /mnt" || { echo "Error: Please check if you have typed the right partition and try again." ; echo -e "\nPress any key to continue." ; read ; exit ; }
 }
 
 function selectMirror() {
-	cat /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist.backup
-	cat /etc/pacman.d/mirrorlist | grep "\.br" > mirror
-	cat mirror > /etc/pacman.d/mirrorlist
+	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+	cat /etc/pacman.d/mirrorlist.backup | grep "\.br" > /etc/pacman.d/mirrorlist
 }
 
 function baseInstall() {
@@ -58,11 +55,6 @@ function grubChroot() {
 	echo "Generating fstab file."
 	sleep 1
 	genfstab /mnt >> /mnt/etc/fstab
-	echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen
-	echo 'LANG=pt_BR.UTF-8' > /etc/locale.conf
-	echo 'KEYMAP=br-abnt2' > /etc/vconsole.conf
-	echo 'arch' > /etc/hostname
-	locale-gen
 	
 	echo "Downloading chroot script."
 	sleep 1
@@ -78,12 +70,13 @@ function grubChroot() {
 ####################################################################################################
 
 #Connection test
+echo "Testing your connection."
 [[ $(ping -c2 archlinux.org) ]] || { echo "You don't have internet connection. Please connect a ethernet connection or use wifi-menu to set up a wifi networkin." ; exit ; }
 
 #Information about how partitioning (Does not) work on this script.
-echo "This script assumes that you have already formated the driver to a layout that"
-echo "suits your need also if you want to create a swap driver make it yourself by"
-echo "using mkswap and swapon. I think using a swapfile is a better idea."
+echo "This script assumes that you have already defined and formated the disk partitioning that"
+echo "suits your need also it wont create a swap partition, if you need a swap space"
+echo "make a swapfile later."
 echo
 echo "Press enter to continue."
 read
@@ -93,14 +86,14 @@ option=1
 while [ $option -ne 5 ] ; do
   echo "******************************************************************************"
   echo "*     1 - Select Disk Partition.                                             *"
-  echo "*     2 - Select Mirrors.                                                    *"
+  echo "*     2 - Select Mirrors (Brazil only).                                                    *"
   echo "*     3 - Install Base System.                                               *"
   echo "*     4 - Configure The Installation And Install GRUB to MBR (Optional).     *"
-  echo "*     5 - Exit.                                                              *"
+  echo "*     6 - Exit.                                                              *"
   echo "******************************************************************************"
   
-  local PS1="Select your choise: "
-  read -e option
+  echo "Select your choise: "
+  read -p option
 
   clear
 
