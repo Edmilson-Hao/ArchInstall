@@ -10,17 +10,17 @@ function installGrub() {
 	grub-mkconfig -o /boot/grub/grub.cfg
 }
 
-##echo "Pleaze enter your current timezone (eg.: America/Recife, America/Argentina/Buenos_aires etc.)."
-##echo "If your not sure run select another tty and list all available options -> ls /usr/share/zoneinfo"
-##read myzoneinfo
-##ln -sf /usr/share/zoneinfo/$myzoneinfo /etc/localtime
-##sleep 1
-##clear
+echo "Pleaze enter your current timezone (eg.: America/Recife, America/Argentina/Buenos_aires etc.)."
+echo "If your not sure run select another tty and list all available options -> ls /usr/share/zoneinfo"
+read myzoneinfo
+ln -sf /usr/share/zoneinfo/$myzoneinfo /etc/localtime
+sleep 1
+clear
 #Making initialRam disk file
-##mkinitcpio -p linux
+mkinitcpio -p linux
 
-##echo "Do you want to install GRUB in the MBR? (Y/n)"
-##read -e option
+echo "Do you want to install GRUB in the MBR? (Y/n)"
+read -e option
 #Ask if user wants to install grub
 echo "Do you want to install grub to MBR?"
 echo "1 - Yes"
