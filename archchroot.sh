@@ -13,11 +13,27 @@ function installGrub() {
 echo "Pleaze enter your current timezone (eg.: America/Recife, America/Argentina/Buenos_aires etc.)."
 echo "If your not sure run select another tty and list all available options -> ls /usr/share/zoneinfo"
 read myzoneinfo
+timedatectl set-ntp true
 ln -sf /usr/share/zoneinfo/$myzoneinfo /etc/localtime
 sleep 1
 clear
 #Making initialRam disk file
 mkinitcpio -p linux
+
+#Enable DHCPCD
+echo "Enable dhcpcd"
+systemctl enable dhcpcd
+
+#Set keyboard layout
+echo "Configure Brazilian keyboard layout?"
+echo "1 - Yes"
+echo "2 - No"
+read kOption
+
+if [[ $kOption -eq 1 ]] ; then
+	localectl set-keymap br-abnt2
+fi
+
 
 #Ask if user wants to install grub
 echo "Do you want to install grub to MBR?"

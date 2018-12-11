@@ -39,6 +39,7 @@ function setPartition() {
 	echo "Please enter the partition you want to install arch linux (eg.: sda1 or sd2...)."
 	read partition
 	clear
+	mkfs.xfs -f /dev/$partition
 	mount /dev/$partition /mnt && echo "/dev/$partition mounted in /mnt" || { echo "Error: Please check if your typed the right partition and rettry." ; echo " Press any key to continue." ; read ; exit ; }	
 }
 
@@ -57,9 +58,6 @@ function grubChroot() {
 	echo "Generating fstab file."
 	sleep 1
 	genfstab /mnt >> /mnt/etc/fstab
-	timedatectl set-ntp true
-	localectl set-keymap br-abnt2
-	systemctl enable dhcpcd
 	echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen
 	echo 'LANG=pt_BR.UTF-8' > /etc/locale.conf
 	echo 'KEYMAP=br-abnt2' > /etc/vconsole.conf
