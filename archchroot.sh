@@ -19,14 +19,12 @@ clear
 #Making initialRam disk file
 mkinitcpio -p linux
 
-echo "Do you want to install GRUB in the MBR? (Y/n)"
-read -e option
 #Ask if user wants to install grub
 echo "Do you want to install grub to MBR?"
 echo "1 - Yes"
 echo "2 - No"
-read grubOption
+read option
 
-[[ $grubOption -eq 1 ]] && installGrub
+[[ $option -eq 1 ]] && installGrub
 
 exit
