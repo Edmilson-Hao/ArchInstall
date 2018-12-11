@@ -10,6 +10,14 @@ function installGrub() {
 	grub-mkconfig -o /boot/grub/grub.cfg
 }
 
+function setLocale() {
+	echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen
+	echo 'LANG=pt_BR.UTF-8' > /etc/locale.conf
+	echo 'KEYMAP=br-abnt2' > /etc/vconsole.conf
+	echo 'arch' > /etc/hostname
+	locale-gen
+}
+
 echo "Pleaze enter your current timezone (eg.: America/Recife, America/Argentina/Buenos_aires etc.)."
 echo "If your not sure run select another tty and list all available options -> ls /usr/share/zoneinfo"
 read myzoneinfo
@@ -25,15 +33,17 @@ echo "Enable dhcpcd"
 systemctl enable dhcpcd
 
 #Set keyboard layout
-echo "Configure Brazilian keyboard layout?"
+echo "Configure Brazilian keyboard layout and lcoales?"
 echo "1 - Yes"
 echo "2 - No"
 read kOption
 
 if [[ $kOption -eq 1 ]] ; then
+	setLocale
 	localectl set-keymap br-abnt2
 fi
-
+	
+fi
 
 #Ask if user wants to install grub
 echo "Do you want to install grub to MBR?"
