@@ -11,9 +11,10 @@ function installGrub() {
 }
 
 function setLocale() {
-	echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen
-	echo 'LANG=pt_BR.UTF-8' > /etc/locale.conf
-	echo 'KEYMAP=br-abnt2' > /etc/vconsole.conf
+	echo "pt_BR.UTF-8 UTF-8" >> /etc/locale.gen
+	echo 'LANG=pt_BR.UTF-8' >> /etc/locale.conf
+	echo 'KEYMAP=br-abnt2' >> /etc/vconsole.conf
+	localectl set-keymap br-abnt2
 	echo 'arch' > /etc/hostname
 	locale-gen
 }
@@ -34,21 +35,20 @@ systemctl enable dhcpcd
 
 #Set keyboard layout
 echo "Configure Brazilian keyboard layout and lcoales?"
-echo "1 - Yes"
-echo "2 - No"
+echo "(1) - Yes"
+echo "(2) - No"
 read kOption
 
 if [[ $kOption -eq 1 ]] ; then
 	setLocale
-	localectl set-keymap br-abnt2
 fi
 	
 fi
 
 #Ask if user wants to install grub
 echo "Do you want to install grub to MBR?"
-echo "1 - Yes"
-echo "2 - No"
+echo "(1) - Yes"
+echo "(2) - No"
 read option
 
 [[ $option -eq 1 ]] && installGrub
