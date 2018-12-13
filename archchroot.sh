@@ -43,7 +43,7 @@ if [[ $kOption -eq 1 ]] ; then
 	setLocale
 fi
 	
-
+fi
 
 #Ask if user wants to install grub
 echo "Do you want to install grub to MBR?"
